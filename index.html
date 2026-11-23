@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b0c">
+  <meta name="description" content="BEBO — Mohamed | Personal profile">
+  <title>BEBO — Mohamed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#080a0b; --panel:rgba(13,17,18,.84); --line:rgba(92,255,194,.22);
+      --mint:#69f5c0; --mint2:#b6ffe2; --muted:#9aa8a2; --white:#f1f8f4;
+      --red:#ff5d67; --shadow:0 0 36px rgba(63,255,183,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; min-height:100vh; color:var(--white); background:
+      radial-gradient(ellipse at 15% 8%,rgba(40,118,91,.16),transparent 38%),
+      radial-gradient(ellipse at 90% 80%,rgba(85,36,47,.14),transparent 35%),var(--bg);
+      font-family:"Cairo",sans-serif; overflow-x:hidden;
+    }
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;opacity:.11;
+      background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.12) 4px,transparent 5px)}
+    body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:4;opacity:.13;
+      background-image:linear-gradient(rgba(105,245,192,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(105,245,192,.07) 1px,transparent 1px);
+      background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
+    .wrap{width:min(100% - 32px,980px);margin:auto;position:relative;z-index:2}
+    .topline{display:flex;align-items:center;justify-content:space-between;padding:22px 0;color:var(--muted);font:11px Orbitron,sans-serif;letter-spacing:2px}
+    .signal{display:flex;align-items:center;gap:9px;direction:ltr}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint);animation:pulse 1.8s infinite}
+    @keyframes pulse{50%{opacity:.35;box-shadow:0 0 3px var(--mint)}}
+    .hero{min-height:calc(100svh - 70px);display:grid;place-items:center;padding:22px 0 70px}
+    .intro{width:100%;text-align:center;animation:rise .9s ease both}
+    @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+    .eyebrow{font:11px Orbitron,sans-serif;color:var(--mint);letter-spacing:4px;direction:ltr;margin-bottom:18px}
+    h1{font-size:clamp(54px,12vw,108px);line-height:1;margin:0;font-weight:900;letter-spacing:-3px;text-shadow:0 0 28px rgba(105,245,192,.2)}
+    h1 .en{font-family:Orbitron,sans-serif;color:var(--mint);font-size:.67em;display:block;letter-spacing:7px;margin-top:14px}
+    .tagline{color:var(--muted);font-size:15px;margin:24px 0 30px}
+    .enter{border:1px solid var(--mint);background:linear-gradient(120deg,rgba(105,245,192,.14),rgba(105,245,192,.03));
+      color:var(--mint2);padding:13px 25px;border-radius:3px;font:600 12px Orbitron,sans-serif;letter-spacing:2px;cursor:pointer;
+      box-shadow:var(--shadow);transition:.25s}
+    .enter:hover{background:var(--mint);color:#06110c;transform:translateY(-3px);box-shadow:0 0 35px rgba(105,245,192,.3)}
+    .scrollhint{font:10px Orbitron,sans-serif;color:#64736c;letter-spacing:3px;margin-top:35px;direction:ltr}
+    #profile{display:none;padding:0 0 70px;animation:rise .7s ease both}
+    #profile.visible{display:block}
+    .section-label{font:10px Orbitron,sans-serif;letter-spacing:3px;color:var(--mint);direction:ltr;text-align:left;margin:0 0 14px}
+    .profile-card{display:grid;grid-template-columns:270px 1fr;gap:0;border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow);overflow:hidden}
+    .portrait{position:relative;min-height:390px;background:#101715}
+    .portrait img{position:absolute;width:100%;height:100%;object-fit:cover;object-position:center 45%;filter:contrast(1.08) saturate(.78)}
+    .portrait:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,10,8,.7),transparent 55%),linear-gradient(90deg,transparent 80%,rgba(105,245,192,.14))}
+    .portrait-tag{position:absolute;z-index:1;bottom:17px;right:18px;color:#d9fff0;font:10px Orbitron,sans-serif;letter-spacing:2px;direction:ltr}
+    .identity{padding:28px 30px}
+    .name{font-size:35px;font-weight:900;margin:0;line-height:1.2}
+    .nickname{font:600 14px Orbitron,sans-serif;color:var(--mint);letter-spacing:4px;margin:8px 0 26px;direction:ltr;text-align:right}
+    .id-title{font:11px Orbitron,sans-serif;letter-spacing:3px;color:var(--mint);direction:ltr;text-align:left;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
+    .data-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}
+    .field small{display:block;color:#718078;font:10px Orbitron,sans-serif;letter-spacing:1.5px;text-transform:uppercase;direction:ltr;text-align:left}
+    .field strong{display:block;font-size:15px;font-weight:600;margin-top:5px}
+    .field .sub{color:var(--muted);font-size:12px;display:block;line-height:1.7}
+    .status{color:var(--mint2)!important}
+    .section{margin-top:34px}
+    .section-head{display:flex;align-items:center;gap:13px;margin-bottom:15px}
+    .section-head h2{font:600 12px Orbitron,sans-serif;letter-spacing:2px;color:var(--mint);direction:ltr;margin:0}
+    .section-head:after{content:"";height:1px;background:var(--line);flex:1}
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .info-box{border:1px solid var(--line);background:var(--panel);padding:20px 22px;min-height:115px}
+    .info-box small{display:block;color:#74877d;font:10px Orbitron,sans-serif;letter-spacing:2px;direction:ltr;text-align:left}
+    .info-box strong{display:block;font-size:17px;margin-top:12px}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px;direction:ltr}
+    .chip{border:1px solid rgba(105,245,192,.25);padding:5px 10px;color:var(--mint2);font:10px Orbitron,sans-serif}
+    .faith{margin-top:34px;text-align:center;border:1px solid var(--line);background:linear-gradient(135deg,rgba(105,245,192,.08),rgba(13,17,18,.8));padding:30px 20px;box-shadow:var(--shadow)}
+    .ayah{font-size:clamp(23px,5vw,34px);font-weight:800;color:#e5fff3;line-height:1.8}
+    .dua{font-size:15px;color:var(--mint2);margin:13px 0 25px;line-height:2}
+    .quote{font-size:16px;color:#c4ccc7;line-height:2;border-top:1px solid var(--line);padding-top:20px;margin:0}
+    .contact{margin-top:34px;border:1px solid var(--line);background:var(--panel);padding:24px;text-align:center}
+    .contact-title{font:12px Orbitron,sans-serif;letter-spacing:3px;color:var(--mint);direction:ltr}
+    .contact-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .contact-link{min-width:180px;text-decoration:none;color:var(--white);border:1px solid rgba(105,245,192,.3);padding:12px 18px;font-size:13px;transition:.2s}
+    .contact-link:hover{border-color:var(--mint);color:var(--mint);transform:translateY(-2px)}
+    footer{text-align:center;color:#637068;font:9px Orbitron,sans-serif;letter-spacing:2px;padding:30px 0 22px;direction:ltr}
+    .back{display:block;margin:25px auto 0;background:none;border:0;color:#82938a;font:10px Orbitron,sans-serif;letter-spacing:2px;cursor:pointer}
+    @media(max-width:680px){
+      .profile-card{grid-template-columns:1fr}
+      .portrait{min-height:420px;max-height:520px}
+      .identity{padding:23px 20px}
+      .data-grid{gap:16px 12px}
+      .name{font-size:30px}
+    }
+    @media(max-width:420px){.info-grid{grid-template-columns:1fr}.portrait{min-height:360px}.field strong{font-size:14px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="topline">
+      <span>PERSONAL ARCHIVE / 001</span>
+      <span class="signal"><i class="dot"></i> SYSTEM ONLINE</span>
+    </div>
+
+    <section class="hero" id="intro">
+      <div class="intro">
+        <div class="eyebrow">UNKNOWN SIGNAL DETECTED</div>
+        <h1>محمد<span class="en">MOHAMED</span></h1>
+        <p class="tagline">كل شخص وراه حكاية... ودي بدايتي.</p>
+        <button class="enter" id="enterBtn">اضغط هنا عشان تعرفني</button>
+        <div class="scrollhint">ACCESS PROFILE ↓</div>
+      </div>
+    </section>
+
+    <section id="profile">
+      <p class="section-label">01 / IDENTITY</p>
+      <div class="profile-card">
+        <div class="portrait">
+          <img src="assets/bebo-photo.jpg" alt="صورة محمد">
+          <span class="portrait-tag">BEBO / USER PROFILE</span>
+        </div>
+        <div class="identity">
+          <h2 class="name">محمد</h2>
+          <div class="nickname">BEBO</div>
+          <div class="id-title">ID_CARD</div>
+          <div class="data-grid">
+            <div class="field"><small>Name</small><strong>Mohamed</strong></div>
+            <div class="field"><small>Location</small><strong>مصر، المنيا</strong></div>
+            <div class="field"><small>Education</small><strong>High School Student</strong></div>
+            <div class="field"><small>Status</small><strong class="status">Surviving, not thriving</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2>SKILLS_&_HOBBIES</h2></div>
+        <div class="info-grid">
+          <div class="info-box">
+            <small>Hobbies</small>
+            <strong>كمال أجسام، برمجة</strong>
+          </div>
+          <div class="info-box">
+            <small>Tech Stack</small>
+            <strong>Programming Languages</strong>
+            <div class="chips"><span class="chip">PYTHON</span><span class="chip">NODE.JS</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faith">
+        <div class="ayah">﴿ وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ﴾</div>
+        <p class="dua">اللهم اجعل عملي كله صالحاً، واجعله لوجهك خالصاً 🤲</p>
+        <p class="quote">"لا تحسبن المجد تمراً أنت آكله، لن تبلغ المجد حتى تلعق الصبرا"</p>
+      </div>
+
+      <div class="contact">
+        <div class="contact-title">TRANSMIT_MESSAGE</div>
+        <div class="contact-actions">
+          <a class="contact-link" href="https://t.me/xxmedo156xx" target="_blank" rel="noopener noreferrer">Telegram — @xxmedo156xx ↗</a>
+        </div>
+      </div>
+      <button class="back" id="backBtn">↑ BACK TO TOP</button>
+      <footer>© 2026 BEBO | MOHAMED</footer>
+    </section>
+  </main>
+  <script>
+    const intro = document.getElementById('intro');
+    const profile = document.getElementById('profile');
+    document.getElementById('enterBtn').addEventListener('click', () => {
+      intro.style.display = 'none';
+      profile.classList.add('visible');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+    document.getElementById('backBtn').addEventListener('click', () => {
+      profile.classList.remove('visible');
+      profile.style.display = 'none';
+      intro.style.display = 'grid';
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  </script>
+</body>
+</html>
