@@ -1,194 +1,520 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0d0c">
-  <meta name="description" content="BEBO — Personal Portfolio">
-  <title>BEBO — Personal Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#0b0d0c;--surface:#121614;--surface-2:#171d19;--line:#28342d;
-      --green:#9be7b5;--green-soft:#c9f5d6;--text:#f1f5f1;--muted:#98a49b;
-      --radius:22px;--shadow:0 22px 70px rgba(0,0,0,.28)
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;min-height:100vh;color:var(--text);font-family:"Cairo",sans-serif;
-      background:radial-gradient(ellipse at 12% 5%,rgba(89,160,111,.12),transparent 34%),
-                 radial-gradient(ellipse at 90% 75%,rgba(67,110,79,.09),transparent 32%),var(--bg);
-      overflow-x:hidden
-    }
-    a{color:inherit}
-    .shell{width:min(100% - 36px,1040px);margin:auto;position:relative}
-    .topbar{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06)}
-    .brand{font:700 18px "Space Grotesk",sans-serif;letter-spacing:3px;color:var(--green)}
-    .top-note{font:11px "Space Grotesk",sans-serif;letter-spacing:1.5px;color:var(--muted);direction:ltr}
-    .online{display:inline-flex;align-items:center;gap:8px}
-    .online:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
-    .intro{min-height:calc(100svh - 76px);display:grid;place-items:center;text-align:center;padding:70px 0}
-    .intro-inner{max-width:700px;animation:appear .8s ease both}
-    .eyebrow{font:600 11px "Space Grotesk",sans-serif;letter-spacing:4px;color:var(--green);direction:ltr;margin-bottom:22px}
-    h1{font:700 clamp(76px,17vw,142px)/.95 "Space Grotesk",sans-serif;letter-spacing:-7px;margin:0;color:var(--text)}
-    .intro-sub{font-size:15px;color:var(--muted);margin:25px 0 32px}
-    .primary-btn{border:1px solid var(--green);border-radius:999px;background:var(--green);color:#102016;padding:13px 25px;font:700 13px "Cairo",sans-serif;cursor:pointer;transition:.2s}
-    .primary-btn:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(155,231,181,.18)}
-    .hint{font:10px "Space Grotesk",sans-serif;letter-spacing:2px;color:#69756d;margin-top:38px;direction:ltr}
-    #profile{display:none;padding:52px 0 36px;animation:appear .55s ease both}
-    #profile.visible{display:block}
-    .section-kicker{font:600 10px "Space Grotesk",sans-serif;letter-spacing:2.5px;color:var(--green);direction:ltr;margin:0 0 16px}
-    .profile-card{display:grid;grid-template-columns:320px 1fr;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:rgba(18,22,20,.88);box-shadow:var(--shadow)}
-    .portrait{position:relative;min-height:390px;background:#172019;overflow:hidden}
-    .portrait img{position:absolute;width:100%;height:100%;inset:0;object-fit:cover;object-position:center 42%;display:block}
-    .portrait:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(0deg,rgba(7,12,9,.72),transparent)}
-    .portrait-label{position:absolute;z-index:1;bottom:20px;right:22px;font:600 11px "Space Grotesk",sans-serif;letter-spacing:2px;color:#e6f8eb;direction:ltr}
-    .identity{padding:34px 36px;display:flex;flex-direction:column;justify-content:center}
-    .name-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
-    .name{font-size:clamp(34px,5vw,48px);line-height:1.2;margin:0;font-weight:900}
-    .verified{font:600 10px "Space Grotesk",sans-serif;letter-spacing:1px;color:var(--green);border:1px solid rgba(155,231,181,.3);border-radius:999px;padding:6px 10px;direction:ltr}
-    .nickname{font:600 13px "Space Grotesk",sans-serif;letter-spacing:4px;color:var(--green);direction:ltr;margin:0 0 28px}
-    .divider{height:1px;background:var(--line);margin-bottom:22px}
-    .details{display:grid;grid-template-columns:1fr 1fr;gap:22px 26px}
-    .detail-label{font:600 10px "Space Grotesk",sans-serif;letter-spacing:1.5px;color:#829087;direction:ltr;text-transform:uppercase}
-    .detail-value{font-size:15px;font-weight:600;margin-top:7px;line-height:1.7}
-    .status{color:var(--green-soft)}
-    .section{margin-top:38px}
-    .section-heading{display:flex;align-items:center;gap:14px;margin-bottom:17px}
-    .section-heading h2{font:600 11px "Space Grotesk",sans-serif;letter-spacing:2px;color:var(--green);direction:ltr;margin:0}
-    .section-heading:after{content:"";height:1px;background:var(--line);flex:1}
-    .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .info-card{border:1px solid var(--line);border-radius:17px;background:var(--surface);padding:23px 25px;min-height:142px}
-    .info-label{font:600 10px "Space Grotesk",sans-serif;letter-spacing:1.7px;color:#829087;direction:ltr}
-    .info-title{font-size:18px;font-weight:700;margin:13px 0 0}
-    .chips{display:flex;gap:9px;flex-wrap:wrap;direction:ltr;margin-top:15px}
-    .chip{border:1px solid rgba(155,231,181,.25);background:rgba(155,231,181,.06);border-radius:999px;padding:7px 13px;color:var(--green-soft);font:600 11px "Space Grotesk",sans-serif}
-    .faith{margin-top:38px;padding:32px 28px;text-align:center;border:1px solid rgba(155,231,181,.22);border-radius:var(--radius);background:linear-gradient(135deg,rgba(155,231,181,.08),rgba(18,22,20,.92));}
-    .faith-label{font:600 10px "Space Grotesk",sans-serif;letter-spacing:2.5px;color:var(--green);direction:ltr;margin-bottom:17px}
-    .ayah{font-size:clamp(24px,4.5vw,34px);font-weight:800;line-height:1.9;color:#e9f8ed}
-    .dua{font-size:14px;line-height:2.1;color:var(--green-soft);margin:12px 0 24px}
-    .quote{border-top:1px solid var(--line);padding-top:20px;margin:0;color:#c2ccc4;font-size:15px;line-height:2}
-    .contact{margin-top:38px;padding:27px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);text-align:center}
-    .contact-title{font:600 11px "Space Grotesk",sans-serif;letter-spacing:2.5px;color:var(--green);direction:ltr}
-    .contact-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:17px;padding:12px 21px;border-radius:999px;border:1px solid rgba(155,231,181,.38);text-decoration:none;font-size:13px;transition:.2s}
-    .contact-link:hover{background:rgba(155,231,181,.1);border-color:var(--green);transform:translateY(-2px)}
-    .back{display:block;margin:25px auto 0;background:none;border:0;color:var(--muted);font:600 10px "Space Grotesk",sans-serif;letter-spacing:2px;cursor:pointer;padding:10px}
-    footer{text-align:center;padding:25px 0 8px;color:#66736a;font:10px "Space Grotesk",sans-serif;letter-spacing:1.5px;direction:ltr}
-    @keyframes appear{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-    @media(max-width:720px){
-      .profile-card{grid-template-columns:1fr}
-      .portrait{min-height:420px;max-height:500px}
-      .identity{padding:28px 24px}
-    }
-    @media(max-width:480px){
-      .shell{width:min(100% - 26px,1040px)}
-      .topbar{height:65px}
-      .intro{min-height:calc(100svh - 65px)}
-      h1{letter-spacing:-4px}
-      .top-note{font-size:9px}
-      #profile{padding-top:32px}
-      .portrait{min-height:360px}
-      .details,.cards{grid-template-columns:1fr}
-      .details{gap:17px}
-      .info-card{min-height:unset}
-      .faith{padding:26px 17px}
-      .contact{padding:24px 15px}
-    }
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
-  </style>
-</head>
-<body>
-  <main class="shell">
-    <header class="topbar">
-      <div class="brand">BEBO.</div>
-      <div class="top-note"><span class="online">PERSONAL SPACE / ONLINE</span></div>
-    </header>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>MOHAMED | Cyberpunk Portfolio</title>  
+    <link rel="preconnect" href="https://fonts.googleapis.com">  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">  
+    <style>  
+        * { margin: 0; padding: 0; box-sizing: border-box; }  body {  
+        font-family: 'Rajdhani', sans-serif;  
+        background-color: #0a0a0f;  
+        color: #e0e0ff;  
+        min-height: 100vh;  
+        display: flex;  
+        justify-content: center;  
+        align-items: center;  
+        overflow-x: hidden;  
+        position: relative;  
+    }  
 
-    <section class="intro" id="intro">
-      <div class="intro-inner">
-        <div class="eyebrow">WELCOME TO MY WORLD</div>
-        <h1>BEBO</h1>
-        <p class="intro-sub">كل شخص وراه حكاية... ودي بدايتي.</p>
-        <button class="primary-btn" id="enterBtn">اكتشف الملف الشخصي</button>
-        <div class="hint">GET TO KNOW ME&nbsp; ↓</div>
-      </div>
-    </section>
+    /* Animated Background */  
+    .bg-grid {  
+        position: fixed;  
+        top: 0; left: 0; right: 0; bottom: 0;  
+        background-image:   
+            linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),  
+            linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);  
+        background-size: 50px 50px;  
+        z-index: -2;  
+        animation: gridMove 20s linear infinite;  
+    }  
 
-    <section id="profile" aria-label="Personal profile">
-      <p class="section-kicker">01 — ABOUT ME</p>
-      <div class="profile-card">
-        <div class="portrait">
-          <img src="assets/bebo-photo.jpg" alt="BEBO profile photo">
-          <span class="portrait-label">BEBO / PROFILE</span>
-        </div>
-        <div class="identity">
-          <div class="name-row">
-            <h2 class="name">BEBO</h2>
-            <span class="verified">PERSONAL PROFILE</span>
-          </div>
-          <p class="nickname">BEBO</p>
-          <div class="divider"></div>
-          <div class="details">
-            <div><div class="detail-label">Name</div><div class="detail-value">BEBO</div></div>
-            <div><div class="detail-label">Location</div><div class="detail-value" dir="ltr">Egypt, Minya</div></div>
-            <div><div class="detail-label">Education</div><div class="detail-value" dir="ltr">High School Student</div></div>
-            <div><div class="detail-label">Status</div><div class="detail-value status" dir="ltr">Surviving, not thriving</div></div>
-          </div>
-        </div>
-      </div>
+    @keyframes gridMove {  
+        0% { transform: perspective(500px) rotateX(60deg) translateY(0); }  
+        100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }  
+    }  
 
-      <section class="section">
-        <div class="section-heading"><h2>INTERESTS & TECH</h2></div>
-        <div class="cards">
-          <article class="info-card">
-            <div class="info-label">HOBBIES</div>
-            <h3 class="info-title" dir="ltr">Bodybuilder and programmer</h3>
-          </article>
-          <article class="info-card">
-            <div class="info-label">PROGRAMMING LANGUAGES</div>
-            <div class="chips">
-              <span class="chip">PYTHON</span>
-              <span class="chip">NODE.JS</span>
-            </div>
-          </article>
-        </div>
-      </section>
+    .bg-glow {  
+        position: fixed;  
+        width: 600px; height: 600px;  
+        border-radius: 50%;  
+        filter: blur(150px);  
+        opacity: 0.3;  
+        z-index: -1;  
+        pointer-events: none;  
+    }  
+    .glow-1 { top: -200px; left: -200px; background: #00ffff; animation: pulse1 8s ease-in-out infinite alternate; }  
+    .glow-2 { bottom: -200px; right: -200px; background: #bf00ff; animation: pulse2 10s ease-in-out infinite alternate; }  
+    .glow-3 { top: 50%; left: 50%; transform: translate(-50%, -50%); background: #00ffff; opacity: 0.15; animation: pulse3 12s ease-in-out infinite alternate; }  
 
-      <section class="faith">
-        <div class="faith-label">A REMINDER</div>
-        <div class="ayah">﴿ وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ﴾</div>
-        <p class="dua">اللهم اجعل عملي كله صالحاً، واجعله لوجهك خالصاً 🤲</p>
-        <p class="quote">"لا تحسبن المجد تمراً أنت آكله، لن تبلغ المجد حتى تلعق الصبرا"</p>
-      </section>
+    @keyframes pulse1 { 0% { opacity: 0.2; transform: scale(1); } 100% { opacity: 0.4; transform: scale(1.2); } }  
+    @keyframes pulse2 { 0% { opacity: 0.3; transform: scale(1.1); } 100% { opacity: 0.15; transform: scale(0.9); } }  
+    @keyframes pulse3 { 0% { opacity: 0.1; } 50% { opacity: 0.25; } 100% { opacity: 0.1; } }  
 
-      <section class="contact">
-        <div class="contact-title">LET'S CONNECT</div>
-        <a class="contact-link" href="https://t.me/xxmedo156xx" target="_blank" rel="noopener noreferrer">
-          <span>Telegram</span><span dir="ltr">@xxmedo156xx ↗</span>
-        </a>
-      </section>
+    /* Main Container */  
+    .container {  
+        width: 100%;  
+        max-width: 480px;  
+        padding: 20px;  
+        position: relative;  
+        z-index: 1;  
+    }  
 
-      <button class="back" id="backBtn">↑ BACK TO HOME</button>
-      <footer>© 2026 BEBO — PERSONAL PORTFOLIO</footer>
-    </section>
-  </main>
-  <script>
-    const intro = document.getElementById('intro');
-    const profile = document.getElementById('profile');
-    document.getElementById('enterBtn').addEventListener('click', () => {
-      intro.style.display = 'none';
-      profile.classList.add('visible');
-      window.scrollTo({top: 0, behavior: 'smooth'});
-    });
-    document.getElementById('backBtn').addEventListener('click', () => {
-      profile.classList.remove('visible');
-      profile.style.display = 'none';
-      intro.style.display = 'grid';
-      window.scrollTo({top: 0, behavior: 'smooth'});
-    });
-  </script>
-</body>
-</html>
+    /* Profile Header */  
+    .profile-header {  
+        text-align: center;  
+        margin-bottom: 25px;  
+        position: relative;  
+    }  
+
+    .avatar-container {  
+        position: relative;  
+        width: 140px;  
+        height: 140px;  
+        margin: 0 auto 15px;  
+    }  
+
+    .avatar-ring {  
+        position: absolute;  
+        top: -5px; left: -5px; right: -5px; bottom: -5px;  
+        border-radius: 50%;  
+        border: 2px solid #00ffff;  
+        box-shadow: 0 0 15px #00ffff, inset 0 0 15px rgba(0,255,255,0.3);  
+        animation: ringRotate 6s linear infinite;  
+    }  
+
+    @keyframes ringRotate {  
+        0% { border-color: #00ffff; box-shadow: 0 0 15px #00ffff; }  
+        50% { border-color: #bf00ff; box-shadow: 0 0 15px #bf00ff; }  
+        100% { border-color: #00ffff; box-shadow: 0 0 15px #00ffff; }  
+    }  
+
+    .avatar-img {  
+        width: 140px;  
+        height: 140px;  
+        border-radius: 50%;  
+        object-fit: cover;  
+        border: 3px solid #0a0a0f;  
+        position: relative;  
+        z-index: 2;  
+    }  
+
+    .status-dot {  
+        position: absolute;  
+        bottom: 10px;  
+        right: 10px;  
+        width: 18px;  
+        height: 18px;  
+        background: #00ff00;  
+        border: 2px solid #0a0a0f;  
+        border-radius: 50%;  
+        z-index: 3;  
+        box-shadow: 0 0 8px #00ff00;  
+        animation: blink 2s ease-in-out infinite;  
+    }  
+
+    @keyframes blink {  
+        0%, 100% { opacity: 1; }  
+        50% { opacity: 0.4; }  
+    }  
+
+    .name {  
+        font-family: 'Orbitron', monospace;  
+        font-size: 2rem;  
+        font-weight: 800;  
+        letter-spacing: 3px;  
+        color: #fff;  
+        text-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0,255,255,0.5);  
+        margin-bottom: 2px;  
+    }  
+
+    .nickname {  
+        font-family: 'Orbitron', monospace;  
+        font-size: 0.9rem;  
+        color: #bf00ff;  
+        letter-spacing: 4px;  
+        text-shadow: 0 0 8px #bf00ff;  
+        margin-bottom: 10px;  
+    }  
+
+    .quote-line {  
+        font-family: 'Noto Kufi Arabic', sans-serif;  
+        font-size: 0.85rem;  
+        color: #ffd700;  
+        text-shadow: 0 0 5px rgba(255,215,0,0.5);  
+        direction: rtl;  
+        margin-top: 5px;  
+    }  
+
+    /* Navigation Tabs */  
+    .nav-tabs {  
+        display: flex;  
+        justify-content: center;  
+        gap: 8px;  
+        margin-bottom: 20px;  
+        flex-wrap: wrap;  
+    }  
+
+    .tab-btn {  
+        background: rgba(0, 255, 255, 0.05);  
+        border: 1px solid rgba(0, 255, 255, 0.3);  
+        color: #00ffff;  
+        padding: 8px 16px;  
+        font-family: 'Orbitron', monospace;  
+        font-size: 0.75rem;  
+        cursor: pointer;  
+        transition: all 0.3s ease;  
+        clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);  
+        letter-spacing: 1px;  
+    }  
+
+    .tab-btn:hover, .tab-btn.active {  
+        background: rgba(0, 255, 255, 0.2);  
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);  
+        border-color: #00ffff;  
+    }  
+
+    .tab-btn.purple:hover, .tab-btn.purple.active {  
+        background: rgba(191, 0, 255, 0.2);  
+        box-shadow: 0 0 10px rgba(191, 0, 255, 0.5);  
+        border-color: #bf00ff;  
+        color: #bf00ff;  
+    }  
+
+    /* Content Sections */  
+    .content-section {  
+        display: none;  
+        animation: fadeIn 0.5s ease;  
+    }  
+
+    .content-section.active {  
+        display: block;  
+    }  
+
+    @keyframes fadeIn {  
+        from { opacity: 0; transform: translateY(10px); }  
+        to { opacity: 1; transform: translateY(0); }  
+    }  
+
+    /* Cards */  
+    .card {  
+        background: rgba(10, 15, 30, 0.85);  
+        border: 1px solid rgba(0, 255, 255, 0.2);  
+        border-radius: 8px;  
+        padding: 20px;  
+        margin-bottom: 15px;  
+        position: relative;  
+        overflow: hidden;  
+        backdrop-filter: blur(10px);  
+    }  
+
+    .card::before {  
+        content: '';  
+        position: absolute;  
+        top: 0; left: 0;  
+        width: 100%; height: 2px;  
+        background: linear-gradient(90deg, transparent, #00ffff, transparent);  
+    }  
+
+    .card-title {  
+        font-family: 'Orbitron', monospace;  
+        font-size: 1rem;  
+        color: #00ffff;  
+        margin-bottom: 15px;  
+        display: flex;  
+        align-items: center;  
+        gap: 8px;  
+    }  
+
+    .card-title::before {  
+        content: '▸';  
+        color: #bf00ff;  
+    }  
+
+    /* Info Rows */  
+    .info-row {  
+        display: flex;  
+        justify-content: space-between;  
+        align-items: center;  
+        padding: 10px 0;  
+        border-bottom: 1px solid rgba(255,255,255,0.05);  
+    }  
+
+    .info-row:last-child { border-bottom: none; }  
+
+    .info-label {  
+        font-size: 0.8rem;  
+        color: #8888aa;  
+        text-transform: uppercase;  
+        letter-spacing: 1px;  
+    }  
+
+    .info-value {  
+        font-size: 0.95rem;  
+        color: #fff;  
+        font-weight: 600;  
+    }  
+
+    /* Hobbies Tags */  
+    .hobby-tags {  
+        display: flex;  
+        flex-wrap: wrap;  
+        gap: 8px;  
+        margin-top: 10px;  
+    }  
+
+    .hobby-tag {  
+        background: rgba(0, 255, 255, 0.1);  
+        border: 1px solid rgba(0, 255, 255, 0.3);  
+        padding: 5px 12px;  
+        border-radius: 20px;  
+        font-size: 0.8rem;  
+        color: #00ffff;  
+    }  
+
+    /* Religious Quote Card */  
+    .quran-card {  
+        background: linear-gradient(135deg, rgba(20, 10, 30, 0.9), rgba(10, 15, 30, 0.9));  
+        border: 1px solid rgba(255, 215, 0, 0.3);  
+        text-align: center;  
+    }  
+
+    .quran-card::before {  
+        background: linear-gradient(90deg, transparent, #ffd700, transparent);  
+    }  
+
+    .quran-text {  
+        font-family: 'Noto Kufi Arabic', sans-serif;  
+        font-size: 1.1rem;  
+        color: #ffd700;  
+        line-height: 1.8;  
+        direction: rtl;  
+        text-shadow: 0 0 8px rgba(255,215,0,0.4);  
+    }  
+
+    .poem-text {  
+        font-family: 'Noto Kufi Arabic', sans-serif;  
+        font-size: 0.9rem;  
+        color: #ccccee;  
+        margin-top: 15px;  
+        font-style: italic;  
+        direction: rtl;  
+    }  
+
+    /* Social Buttons */  
+    .social-btn {  
+        display: flex;  
+        align-items: center;  
+        justify-content: center;  
+        gap: 10px;  
+        width: 100%;  
+        padding: 12px;  
+        margin-bottom: 10px;  
+        background: rgba(0, 255, 255, 0.05);  
+        border: 1px solid rgba(0, 255, 255, 0.3);  
+        border-radius: 6px;  
+        color: #00ffff;  
+        font-family: 'Orbitron', monospace;  
+        font-size: 0.85rem;  
+        text-decoration: none;  
+        transition: all 0.3s ease;  
+        cursor: pointer;  
+    }  
+
+    .social-btn:hover {  
+        background: rgba(0, 255, 255, 0.15);  
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);  
+        transform: translateY(-2px);  
+    }  
+
+    .social-btn.telegram {  
+        border-color: rgba(0, 136, 204, 0.5);  
+        color: #0088cc;  
+    }  
+    .social-btn.telegram:hover {  
+        background: rgba(0, 136, 204, 0.15);  
+        box-shadow: 0 0 15px rgba(0, 136, 204, 0.4);  
+    }  
+
+    .social-btn.instagram {  
+        border-color: rgba(225, 48, 108, 0.5);  
+        color: #e1306c;  
+    }  
+    .social-btn.instagram:hover {  
+        background: rgba(225, 48, 108, 0.15);  
+        box-shadow: 0 0 15px rgba(225, 48, 108, 0.4);  
+    }  
+
+    /* Footer */  
+    .footer {  
+        text-align: center;  
+        margin-top: 30px;  
+        font-size: 0.7rem;  
+        color: #555;  
+        letter-spacing: 2px;  
+    }  
+
+    /* Scanline Effect */  
+    .scanline {  
+        position: fixed;  
+        top: 0; left: 0; right: 0; bottom: 0;  
+        background: repeating-linear-gradient(  
+            0deg,  
+            rgba(0, 0, 0, 0.1),  
+            rgba(0, 0, 0, 0.1) 1px,  
+            transparent 1px,  
+            transparent 2px  
+        );  
+        pointer-events: none;  
+        z-index: 100;  
+    }  
+
+    /* Responsive */  
+    @media (max-width: 480px) {  
+        .name { font-size: 1.5rem; }  
+        .container { padding: 15px; }  
+        .card { padding: 15px; }  
+    }  
+</style>
+
+</head>  
+<body>  
+    <div class="bg-grid"></div>  
+    <div class="bg-glow glow-1"></div>  
+    <div class="bg-glow glow-2"></div>  
+    <div class="bg-glow glow-3"></div>  
+    <div class="scanline"></div>  <div class="container">  
+    <!-- Profile Header -->  
+    <div class="profile-header">  
+        <div class="avatar-container">  
+            <div class="avatar-ring"></div>  
+            <img src="https://for-maro.vercel.app/_next/image?url=%2Fimages%2Fprofile.jpg&w=256&q=75" alt="Profile" class="avatar-img" onerror="this.src='https://via.placeholder.com/140/0a0a1a/00ffff?text=M'">  
+            <div class="status-dot"></div>  
+        </div>  
+        <h1 class="name">MOHAMED</h1>  
+        <div class="nickname">[ BEBO ]</div>  
+        <div class="quote-line">﴿ وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ﴾</div>  
+    </div>  
+
+    <!-- Navigation -->  
+    <div class="nav-tabs">  
+        <button class="tab-btn active" onclick="showTab('id')">ID_CARD</button>  
+        <button class="tab-btn purple" onclick="showTab('skills')">SKILLS</button>  
+        <button class="tab-btn" onclick="showTab('contact')">CONTACT</button>  
+    </div>  
+
+    <!-- ID Card Section -->  
+    <div id="id" class="content-section active">  
+        <div class="card">  
+            <div class="card-title">Personal_Info</div>  
+            <div class="info-row">  
+                <span class="info-label">Name</span>  
+                <span class="info-value">MOHAMED</span>  
+            </div>  
+            <div class="info-row">  
+                <span class="info-label">Nickname</span>  
+                <span class="info-value" style="color:#bf00ff;">BEBO</span>  
+            </div>  
+            <div class="info-row">  
+                <span class="info-label">Age</span>  
+                <span class="info-value">17 Years Old</span>  
+            </div>  
+            <div class="info-row">  
+                <span class="info-label">Location</span>  
+                <span class="info-value">Egypt, Minya</span>  
+            </div>  
+            <div class="info-row">  
+                <span class="info-label">Status</span>  
+                <span class="info-value">High School Student</span>  
+            </div>  
+            <div class="info-row">  
+                <span class="info-label">Vibe</span>  
+                <span class="info-value" style="font-size:0.8rem; color:#aaa;">(Surviving, not thriving)</span>  
+            </div>  
+        </div>  
+
+        <!-- Religious Quote -->  
+        <div class="card quran-card">  
+            <div class="quran-text">  
+                ﴿ وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ﴾<br><br>  
+                اللهم اجعل عملي كله صالحاً، واجعله لوجهك خالصاً 🤲<br><br>  
+                "لا تحسبن المجد تمراً أنت آكله<br>  
+                لن تبلغ المجد حتى تلعق الصبرا"  
+            </div>  
+        </div>  
+    </div>  
+
+    <!-- Skills & Hobbies Section -->  
+    <div id="skills" class="content-section">  
+        <div class="card">  
+            <div class="card-title">Hobbies</div>  
+            <div class="hobby-tags">  
+                <span class="hobby-tag">🏋️ Bodybuilding</span>  
+                <span class="hobby-tag">💻 Programming</span>  
+            </div>  
+        </div>  
+
+        <div class="card">  
+            <div class="card-title">Tech_Stack</div>  
+            <div class="hobby-tags">  
+                <span class="hobby-tag" style="border-color:rgba(55,118,171,0.5); color:#3776ab;">Python</span>  
+                <span class="hobby-tag" style="border-color:rgba(63,187,105,0.5); color:#3fa069;">Node.js</span>  
+            </div>  
+        </div>  
+
+        <div class="card">  
+            <div class="card-title">About_Me</div>  
+            <p style="font-size:0.85rem; color:#8888aa; line-height:1.6; direction:rtl; text-align:center;">  
+                طالب ثانوية عامة، شغوف بالتكنولوجيا والبرمجة.  
+                
+                <br>⚡ Surviving, not thriving ⚡  
+            </p>  
+        </div>  
+    </div>  
+
+    <!-- Contact Section -->  
+    <div id="contact" class="content-section">  
+        <div class="card">  
+            <div class="card-title">Get_In_Touch</div>  
+              
+            <a href="https://t.me/xxmedo156xx" target="_blank" class="social-btn telegram">  
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.74-2.5 2.79-2.72a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.93-1.28 4.89-2.12 5.88-2.51 2.8-1.22 3.39-1.43 3.77-1.43.08 0 .27.02.39.12.12.08.16.2.16.28-.01.06.01.24 0 .38z"/></svg>  
+                Telegram  
+            </a>  
+
+            <a href="https://instagram.com/xxmedo156xx" target="_blank" class="social-btn instagram">  
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.116.088 4.275 1.242 4.363 4.363.058 1.265.07 1.645.07 4.85s-.012 3.584-.07 4.85c-.088 3.116-1.242 4.275-4.363 4.363-1.265.058-1.645.07-4.85.07s-3.584-.012-4.85-.07-4.275-1.242-4.363-4.363c-.058-1.265-.07-1.645-.07-4.85s.012-3.584.07-4.85c.088-3.116 1.242-4.275 4.363-4.363 1.265-.058 1.645-.07 4.85-.07zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.776 6.975 6.975C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.975-6.975.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.2-4.354-2.618-6.776-6.975-6.975C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>  
+                Instagram  
+            </a>  
+        </div>  
+    </div>  
+
+    <div class="footer">  
+        © 2026 MOHAMED | SYSTEM.ONLINE  
+    </div>  
+</div>  
+
+<script>  
+    function showTab(tabId) {  
+        document.querySelectorAll('.content-section').forEach(section => {  
+            section.classList.remove('active');  
+        });  
+        document.querySelectorAll('.tab-btn').forEach(btn => {  
+            btn.classList.remove('active');  
+        });  
+          
+        document.getElementById(tabId).classList.add('active');  
+        event.target.classList.add('active');  
+    }  
+
+    // Calculate age dynamically if needed  
+    const ageElement = document.querySelector('.info-value');  
+    if(ageElement) {  
+        console.log('System initialized for MOHAMED');  
+    }  
+</script>
+
+</body>  
+</html>  
