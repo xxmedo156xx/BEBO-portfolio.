@@ -390,7 +390,7 @@
     <div class="profile-header">  
         <div class="avatar-container">  
             <div class="avatar-ring"></div>  
-            <img src="https://for-maro.vercel.app/_next/image?url=%2Fimages%2Fprofile.jpg&w=256&q=75" alt="Profile" class="avatar-img" onerror="this.src='https://via.placeholder.com/140/0a0a1a/00ffff?text=M'">  
+            <img src="bebo-photo.jpg" alt="BEBO Profile" class="avatar-img">  
             <div class="status-dot"></div>  
         </div>  
         <h1 class="name">MOHAMED</h1>  
@@ -515,6 +515,46 @@
         console.log('System initialized for MOHAMED');  
     }  
 </script>
+
+
+    <audio id="beboMusic" preload="auto" loop>
+        <source src="bebo-song.mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicToggle" type="button" aria-label="تشغيل الموسيقى"
+        style="position:fixed;right:18px;bottom:18px;z-index:9999;border:1px solid rgba(0,255,180,.55);background:rgba(10,15,18,.88);color:#fff;padding:10px 14px;border-radius:999px;font:inherit;cursor:pointer;backdrop-filter:blur(8px);">
+        ▶ تشغيل الموسيقى
+    </button>
+    <script>
+    (() => {
+        const audio = document.getElementById('beboMusic');
+        const button = document.getElementById('musicToggle');
+        if (!audio || !button) return;
+
+        const updateButton = () => {
+            button.textContent = audio.paused ? '▶ تشغيل الموسيقى' : '❚❚ إيقاف الموسيقى';
+            button.setAttribute('aria-label', audio.paused ? 'تشغيل الموسيقى' : 'إيقاف الموسيقى');
+        };
+
+        button.addEventListener('click', async () => {
+            try {
+                if (audio.paused) {
+                    await audio.play();
+                } else {
+                    audio.pause();
+                }
+            } catch (e) {
+                button.textContent = 'تعذّر تشغيل الموسيقى';
+            }
+            updateButton();
+        });
+
+        audio.addEventListener('play', updateButton);
+        audio.addEventListener('pause', updateButton);
+
+        // Try autoplay; browsers may block it until the visitor taps Play.
+        audio.play().then(updateButton).catch(updateButton);
+    })();
+    </script>
 
 </body>  
 </html>  
